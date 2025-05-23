@@ -62,7 +62,11 @@ function scrollToLoadAllConversations() {
 }
 
 function getOnlyConversations() {
-  const items = document.querySelectorAll("nav a.flex");
+  const items = document.querySelectorAll("a[href^='/c/']");
+  if (items.length === 0) {
+    console.warn("CleanerChatGPT: Aucune conversation trouvée");
+    return [];
+  }
 
   return Array.from(items).filter(el => {
     const href = el.getAttribute("href");
