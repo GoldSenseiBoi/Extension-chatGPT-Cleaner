@@ -11,19 +11,16 @@ CleanerChatGPT est une extension Chrome qui améliore l'expérience utilisateur 
 
 ## 📁 Structure du projet
 
+```
 CleanerChatGPT/
-├── scripts/
-│   ├── api.js               ← 📡 fonctions pour interagir avec l’API OpenAI
-│   └── background.js        ← ⚙️ (optionnel) gestion des requêtes en arrière-plan
-├── popup/
-│   ├── popup.html           ← 💬 interface utilisateur
-│   └── popup.js             ← 🧠 logique de la popup, utilise `api.js`
-├── styles/
-│   └── style.css            ← 🎨 style global
-├── icons/
-│   └── icon128.png          ← 🖼️ icône propre
-├── manifest.json            ← 📜 manifeste mis à jour
-
+├── content.js             # Script injecté dans les pages ChatGPT
+├── popup.html             # Interface utilisateur de l'extension
+├── popup.js               # Logique JS de la popup
+├── style.css              # Styles appliqués à l'interface
+├── manifest.json          # Fichier de configuration de l'extension Chrome
+└── icons/
+    └── icon128.png        # Icône principale
+```
 
 ## ⚙️ Installation manuelle
 
