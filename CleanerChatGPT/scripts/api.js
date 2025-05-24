@@ -1,24 +1,21 @@
-// File: scripts/api.js
-
 const BASE_URL = "https://chatgpt.com/backend-api";
 
 function getToken() {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["authToken"], (result) => {
       if (chrome.runtime.lastError) {
-        console.error("[CleanerChatGPT] Erreur chrome.storage :", chrome.runtime.lastError);
+        // console.error("[CleanerChatGPT] chrome.storage error:", chrome.runtime.lastError);
         return reject(chrome.runtime.lastError);
       }
       if (!result.authToken) {
-        console.warn("[CleanerChatGPT] Aucun token trouvé.");
-        return reject(new Error("Aucun token trouvé. Veuillez vous connecter à chatgpt.com."));
+        // console.warn("[CleanerChatGPT] No token found.");
+        return reject(new Error("No token found. Please log in to chatgpt.com."));
       }
-      console.log("[CleanerChatGPT] Token récupéré depuis chrome.storage.");
+      // console.log("[CleanerChatGPT] Token retrieved from chrome.storage.");
       resolve(result.authToken);
     });
   });
 }
-
 
 export async function getConversations() {
   const token = await getToken();
@@ -33,12 +30,12 @@ export async function getConversations() {
       },
     });
 
-    if (!res.ok) throw new Error(`Erreur chargement conversations à offset=${offset}`);
+    if (!res.ok) throw new Error(`Error loading conversations at offset=${offset}`);
 
     const data = await res.json();
     const items = data.items || [];
 
-    if (items.length === 0) break; // ✅ fin atteinte
+    if (items.length === 0) break;
 
     allConversations = allConversations.concat(
       items.map(conv => ({
@@ -53,8 +50,6 @@ export async function getConversations() {
   return allConversations;
 }
 
-
-
 export async function deleteConversation(conversationId) {
   const token = await getToken();
   const res = await fetch(`${BASE_URL}/conversation/${conversationId}`, {
@@ -66,7 +61,7 @@ export async function deleteConversation(conversationId) {
     body: JSON.stringify({ is_visible: false }),
   });
 
-  if (!res.ok) throw new Error(`Erreur lors de la suppression de ${conversationId}`);
+  if (!res.ok) throw new Error(`Failed to delete ${conversationId}`);
 
   return res.status === 200;
 }
