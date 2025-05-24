@@ -9,12 +9,13 @@
 <body>
   <h1>CleanerChatGPT</h1>
   <p>Welcome! Select the conversations you want to clean.</p>
-  <p id="selection-count" style="color:white; margin: 8px 0;">0 conversation sélectionnée</p>
+  <p id="selection-count" style="color:white; margin: 8px 0;">0 conversation selected</p>
+  <div id="loading" style="color:white; margin: 10px 0;">Loading conversations...</div>
 
   <div id="conversation-list"></div>
-  <button id="select-all-button">Tout sélectionner</button>
-  <button id="clean-button">Clean Selected</button>
-  
+  <button id="select-all-button">Select All</button>
+
+  <button id="clean-button">Delete Selected</button>
 
   <script type="module" src="popup.js"></script>
 </body>

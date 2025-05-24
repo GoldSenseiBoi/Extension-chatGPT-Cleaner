@@ -22,17 +22,38 @@ function getToken() {
 
 export async function getConversations() {
   const token = await getToken();
-  const res = await fetch(`${BASE_URL}/conversations?offset=0&limit=100`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const limit = 100;
+  let offset = 0;
+  let allConversations = [];
 
-  if (!res.ok) throw new Error("Erreur lors du chargement des conversations.");
+  while (true) {
+    const res = await fetch(`${BASE_URL}/conversations?offset=${offset}&limit=${limit}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const data = await res.json();
-  return data.items.map((conv) => ({ id: conv.id, title: conv.title }));
+    if (!res.ok) throw new Error(`Erreur chargement conversations à offset=${offset}`);
+
+    const data = await res.json();
+    const items = data.items || [];
+
+    if (items.length === 0) break; // ✅ fin atteinte
+
+    allConversations = allConversations.concat(
+      items.map(conv => ({
+        id: conv.id,
+        title: conv.title,
+      }))
+    );
+
+    offset += limit;
+  }
+
+  return allConversations;
 }
+
+
 
 export async function deleteConversation(conversationId) {
   const token = await getToken();
