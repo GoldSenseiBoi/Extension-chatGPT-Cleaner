@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const saveTokenBtn = document.getElementById("save-token");
   const tokenInput = document.getElementById("token-input");
 
+
   // Sauvegarde manuelle du token si utilisateur colle manuellement
   saveTokenBtn?.addEventListener("click", () => {
     const token = tokenInput?.value.trim();
@@ -68,3 +69,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(error);
   }
 });
+
+const selectAllBtn = document.getElementById("select-all-button");
+
+selectAllBtn?.addEventListener("click", () => {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(cb => cb.checked = true);
+});
+
+  const selectionCount = document.getElementById("selection-count");
+
+function updateSelectionCount() {
+  const checkedCount = document.querySelectorAll("input[type='checkbox']:checked").length;
+  selectionCount.textContent = `${checkedCount} conversation${checkedCount !== 1 ? 's' : ''} sélectionnée${checkedCount !== 1 ? 's' : ''}`;
+}
+
+document.addEventListener("change", (e) => {
+  if (e.target.matches("input[type='checkbox']")) {
+    updateSelectionCount();
+  }
+});
+
+
