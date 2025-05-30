@@ -59,17 +59,31 @@ button.white-button:hover {
   background-color: #f0f0f0;
 }
 
+.button-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
 button.gradient-button {
+  width: 60%;
   background: linear-gradient(45deg, #ff4b2b, #ff416c, #4facfe, #00f2fe);
   background-size: 300% 300%;
   color: white;
   animation: gradientMove 5s ease infinite;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  transition: 0.3s;
 }
 
 button.gradient-button:hover {
   transform: scale(1.03);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
+
 
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
