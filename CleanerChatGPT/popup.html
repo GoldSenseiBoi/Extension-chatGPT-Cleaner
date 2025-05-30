@@ -13,7 +13,15 @@
   <!-- Champ pour coller manuellement le token -->
   <input id="token-input" type="text" placeholder="Colle ton token Bearer ici"
          style="width: 100%; margin-bottom: 6px; padding: 6px;" />
-  <button id="save-token" style="margin-bottom: 12px;">Enregistrer le token</button>
+  <button id="save-token" style="margin-bottom: 6px;">Enregistrer le token</button>
+  <button id="clear-token" style="margin-bottom: 12px;">Supprimer le token</button>
+
+  <!-- Section compteur et boutons -->
+  <div style="margin-bottom: 10px;">
+    <button id="select-all-btn">Tout sélectionner</button>
+    <button id="clear-selection-btn">Tout désélectionner</button>
+    <span id="selected-count" style="margin-left: 10px; color: white;">0 sélectionnée</span>
+  </div>
 
   <div id="conversation-list"></div>
   <button id="clean-button">Clean Selected</button>
