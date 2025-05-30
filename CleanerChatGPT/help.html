@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Aide - Récupérer le Token Bearer</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #2e2e2e;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    ol {
+      padding-left: 20px;
+    }
+    pre {
+      background-color: #444;
+      color: #00ffcc;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    button.copy-btn {
+      background-color: #555;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      margin-top: 5px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    button.copy-btn:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ Étapes pour récupérer le token Bearer dans Chrome</h1>
+  <ol>
+    <li><strong>Va sur</strong> <a href="https://chatgpt.com/" target="_blank" style="color: #00bfff;">https://chatgpt.com</a><br>
+    → Assure-toi d’être connecté à ton compte OpenAI.</li>
+    <li><strong>Ouvre DevTools</strong> (F12 ou clic droit &gt; Inspecter)</li>
+    <li>Va dans l’onglet <strong>Network</strong></li>
+    <li>Recharge la page (F5)</li>
+    <li>Dans la liste des requêtes, cherche ou filtre une ligne vers :
+      <pre>https://chatgpt.com/backend-api/conversations</pre>
+    </li>
+    <li>Clique dessus → Va dans l’onglet <strong>Headers</strong></li>
+    <li>Descends dans la section <strong>Request Headers</strong></li>
+    <li>Tu verras une ligne comme :
+      <pre>Authorization: Bearer eybiOi...</pre>
+      
+    </li>
+    <li>✅ <strong>Copie la partie après "Bearer"</strong> (c’est le token)</li>
+  </ol>
+  
+
+  <script>
+    function copyTokenExample() {
+      const example = 'Authorization: Bearer eyJhbGciOi...';
+      navigator.clipboard.writeText(example).then(() => {
+        alert('Exemple de ligne copiée !\n\nTu dois coller uniquement la partie après "Bearer"');
+      }).catch(err => {
+        alert('Erreur lors de la copie : ' + err);
+      });
+    }
+  </script>
+</body>
+</html>

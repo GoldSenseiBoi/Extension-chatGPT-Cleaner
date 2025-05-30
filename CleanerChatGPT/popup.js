@@ -9,6 +9,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const selectAllBtn = document.getElementById("select-all-btn");
   const clearSelectionBtn = document.getElementById("clear-selection-btn");
   const selectedCountSpan = document.getElementById("selected-count");
+  const helpButton = document.getElementById("help-button");
+helpButton?.addEventListener("click", () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("help.html") });
+});
+
+
+
+
 
   // Sauvegarde manuelle du token (multi-compte facultatif)
   saveTokenBtn?.addEventListener("click", () => {

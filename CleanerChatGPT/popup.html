@@ -13,18 +13,25 @@
   <!-- Champ pour coller manuellement le token -->
   <input id="token-input" type="text" placeholder="Colle ton token Bearer ici"
          style="width: 100%; margin-bottom: 6px; padding: 6px;" />
-  <button id="save-token" style="margin-bottom: 6px;">Enregistrer le token</button>
-  <button id="clear-token" style="margin-bottom: 12px;">Supprimer le token</button>
 
-  <!-- Section compteur et boutons -->
-  <div style="margin-bottom: 10px;">
-    <button id="select-all-btn">Tout sélectionner</button>
-    <button id="clear-selection-btn">Tout désélectionner</button>
-    <span id="selected-count" style="margin-left: 10px; color: white;">0 sélectionnée</span>
+  <!-- Boutons Enregistrer/Supprimer/Aide côte à côte -->
+  <div class="button-group">
+    <button id="save-token" class="white-button">Enregistrer le token</button>
+    <button id="clear-token" class="white-button">Supprimer le token</button>
+    <button id="help-button" class="white-button">Aide Token</button>
   </div>
 
+  <!-- Boutons Tout sélectionner/Désélectionner côte à côte -->
+  <div class="button-group">
+    <button id="select-all-btn" class="white-button">Tout sélectionner</button>
+    <button id="clear-selection-btn" class="white-button">Tout désélectionner</button>
+  </div>
+  <span id="selected-count" style="margin-left: 10px; color: white;">0 sélectionnée</span>
+
   <div id="conversation-list"></div>
-  <button id="clean-button">Clean Selected</button>
+
+  <!-- Bouton Clean Selected -->
+  <button id="clean-button" class="gradient-button">Clean Selected</button>
 
   <script type="module" src="popup.js"></script>
 </body>

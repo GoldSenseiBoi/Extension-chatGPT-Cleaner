@@ -34,12 +34,15 @@ p {
   border-bottom: 1px solid #444;
 }
 
+.button-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
 button {
-  margin-top: 10px;
-  width: 100%;
+  flex: 1;
   padding: 10px;
-  background: linear-gradient(to right, #00c6ff, #0072ff);
-  color: white;
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -47,7 +50,29 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+button.white-button {
+  background-color: #fff;
+  color: #000;
+}
+
+button.white-button:hover {
+  background-color: #f0f0f0;
+}
+
+button.gradient-button {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c, #4facfe, #00f2fe);
+  background-size: 300% 300%;
+  color: white;
+  animation: gradientMove 5s ease infinite;
+}
+
+button.gradient-button:hover {
   transform: scale(1.03);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
