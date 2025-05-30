@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Aide - Récupérer le Token Bearer</title>
+  <title>Help - Retrieve Bearer Token</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -40,33 +40,31 @@
   </style>
 </head>
 <body>
-  <h1>✅ Étapes pour récupérer le token Bearer dans Chrome</h1>
+  <h1>✅ Steps to Retrieve the Bearer Token in Chrome</h1>
   <ol>
-    <li><strong>Va sur</strong> <a href="https://chatgpt.com/" target="_blank" style="color: #00bfff;">https://chatgpt.com</a><br>
-    → Assure-toi d’être connecté à ton compte OpenAI.</li>
-    <li><strong>Ouvre DevTools</strong> (F12 ou clic droit &gt; Inspecter)</li>
-    <li>Va dans l’onglet <strong>Network</strong></li>
-    <li>Recharge la page (F5)</li>
-    <li>Dans la liste des requêtes, cherche ou filtre une ligne vers :
+    <li><strong>Go to</strong> <a href="https://chatgpt.com/" target="_blank" style="color: #00bfff;">https://chatgpt.com</a><br>
+    → Make sure you are logged into your OpenAI account.</li>
+    <li><strong>Open DevTools</strong> (F12 or right-click &gt; Inspect)</li>
+    <li>Go to the <strong>Network</strong> tab.</li>
+    <li>Reload the page (F5)</li>
+    <li>In the list of requests, look for or filter a line to:
       <pre>https://chatgpt.com/backend-api/conversations</pre>
     </li>
-    <li>Clique dessus → Va dans l’onglet <strong>Headers</strong></li>
-    <li>Descends dans la section <strong>Request Headers</strong></li>
-    <li>Tu verras une ligne comme :
+    <li>Click on it → Go to the <strong>Headers</strong> tab.</li>
+    <li>Scroll down to the <strong>Request Headers</strong> section.</li>
+    <li>You will see a line like:
       <pre>Authorization: Bearer eybiOi...</pre>
-      
     </li>
-    <li>✅ <strong>Copie la partie après "Bearer"</strong> (c’est le token)</li>
+    <li>✅ <strong>Copy the part after "Bearer"</strong> (that’s the token).</li>
   </ol>
-  
 
   <script>
     function copyTokenExample() {
       const example = 'Authorization: Bearer eyJhbGciOi...';
       navigator.clipboard.writeText(example).then(() => {
-        alert('Exemple de ligne copiée !\n\nTu dois coller uniquement la partie après "Bearer"');
+        alert('Example line copied!\n\nYou only need to paste the part after "Bearer".');
       }).catch(err => {
-        alert('Erreur lors de la copie : ' + err);
+        alert('Error copying: ' + err);
       });
     }
   </script>

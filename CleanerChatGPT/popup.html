@@ -10,27 +10,27 @@
   <h1>CleanerChatGPT</h1>
   <p>Welcome! Select the conversations you want to clean.</p>
 
-  <!-- Champ pour coller manuellement le token -->
-  <input id="token-input" type="text" placeholder="Colle ton token Bearer ici"
+  <!-- Field to manually paste the token -->
+  <input id="token-input" type="text" placeholder="Paste your Bearer token here"
          style="width: 100%; margin-bottom: 6px; padding: 6px;" />
 
-  <!-- Boutons Enregistrer/Supprimer/Aide côte à côte -->
+  <!-- Buttons Save/Delete/Help side by side -->
   <div class="button-group">
-    <button id="save-token" class="white-button">Enregistrer le token</button>
-    <button id="clear-token" class="white-button">Supprimer le token</button>
-    <button id="help-button" class="white-button">Aide Token</button>
+    <button id="save-token" class="white-button">Save Token</button>
+    <button id="clear-token" class="white-button">Delete Token</button>
+    <button id="help-button" class="white-button">Token Help</button>
   </div>
 
-  <!-- Boutons Tout sélectionner/Désélectionner côte à côte -->
+  <!-- Buttons Select All/Deselect All side by side -->
   <div class="button-group">
-    <button id="select-all-btn" class="white-button">Tout sélectionner</button>
-    <button id="clear-selection-btn" class="white-button">Tout désélectionner</button>
+    <button id="select-all-btn" class="white-button">Select All</button>
+    <button id="clear-selection-btn" class="white-button">Deselect All</button>
   </div>
-  <span id="selected-count" style="margin-left: 10px; color: white;">0 sélectionnée</span>
+  <span id="selected-count" style="margin-left: 10px; color: white;">0 selected</span>
 
   <div id="conversation-list"></div>
 
-  <!-- Bouton Clean Selected centré -->
+  <!-- Clean Selected button centered -->
   <div class="button-center">
     <button id="clean-button" class="gradient-button">Clean Selected</button>
   </div>
