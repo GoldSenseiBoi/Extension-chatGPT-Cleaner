@@ -19,19 +19,35 @@ function getToken() {
   });
 }
 
-
 export async function getConversations() {
   const token = await getToken();
-  const res = await fetch(`${BASE_URL}/conversations?offset=0&limit=100`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  let offset = 0;
+  const limit = 100;
+  let allConversations = [];
 
-  if (!res.ok) throw new Error("Erreur lors du chargement des conversations.");
+  while (true) {
+    const res = await fetch(`${BASE_URL}/conversations?offset=${offset}&limit=${limit}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const data = await res.json();
-  return data.items.map((conv) => ({ id: conv.id, title: conv.title }));
+    if (!res.ok) throw new Error("Erreur lors du chargement des conversations.");
+
+    const data = await res.json();
+    const conversations = data.items.map((conv) => ({ id: conv.id, title: conv.title }));
+
+    allConversations = allConversations.concat(conversations);
+
+    if (conversations.length < limit) {
+      // Si on reçoit moins que la limite, on a tout récupéré
+      break;
+    }
+
+    offset += limit;
+  }
+
+  return allConversations;
 }
 
 export async function deleteConversation(conversationId) {
