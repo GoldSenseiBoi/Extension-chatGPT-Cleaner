@@ -10,38 +10,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   const clearSelectionBtn = document.getElementById("clear-selection-btn");
   const selectedCountSpan = document.getElementById("selected-count");
   const helpButton = document.getElementById("help-button");
-helpButton?.addEventListener("click", () => {
-  chrome.tabs.create({ url: chrome.runtime.getURL("help.html") });
+
+  helpButton?.addEventListener("click", () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("help.html") });
+  });
+
+  // Sauvegarde manuelle du token
+saveTokenBtn?.addEventListener("click", () => {
+  const token = tokenInput?.value.trim();
+  if (!token || !token.startsWith("ey")) {
+    alert("Token invalide.");
+    return;
+  }
+  chrome.storage.local.set({ authToken: token }, () => {
+    console.log("[CleanerChatGPT] Token enregistré.");
+    location.reload();
+  });
 });
 
-
-
-
-
-  // Sauvegarde manuelle du token (multi-compte facultatif)
-  saveTokenBtn?.addEventListener("click", () => {
-    const token = tokenInput?.value.trim();
-    if (!token || !token.startsWith("ey")) {
-      alert("Token invalide.");
-      return;
-    }
-    const accountKey = prompt("Nom du compte (ex: user1) ?");
-    const storageKey = accountKey ? `authToken_${accountKey}` : "authToken";
-    chrome.storage.local.set({ [storageKey]: token }, () => {
-      alert(`Token enregistré pour ${accountKey || "défaut"} !`);
-      location.reload();
-    });
+// Suppression du token
+clearTokenBtn?.addEventListener("click", () => {
+  chrome.storage.local.remove("authToken", () => {
+    console.log("[CleanerChatGPT] Token supprimé.");
+    location.reload();
   });
+});
 
-  // Suppression du token pour un compte précis
-  clearTokenBtn?.addEventListener("click", () => {
-    const accountKey = prompt("Nom du compte à supprimer (laisse vide pour le compte par défaut) ?");
-    const storageKey = accountKey ? `authToken_${accountKey}` : "authToken";
-    chrome.storage.local.remove(storageKey, () => {
-      alert(`Token supprimé pour ${accountKey || "défaut"} !`);
-      location.reload();
-    });
-  });
 
   // Sélectionner toutes les conversations
   selectAllBtn?.addEventListener("click", () => {
