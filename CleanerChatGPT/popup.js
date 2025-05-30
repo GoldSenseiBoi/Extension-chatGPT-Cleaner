@@ -15,51 +15,50 @@ document.addEventListener("DOMContentLoaded", async () => {
     chrome.tabs.create({ url: chrome.runtime.getURL("help.html") });
   });
 
-  // Sauvegarde manuelle du token
-saveTokenBtn?.addEventListener("click", () => {
-  const token = tokenInput?.value.trim();
-  if (!token || !token.startsWith("ey")) {
-    alert("Token invalide.");
-    return;
-  }
-  chrome.storage.local.set({ authToken: token }, () => {
-    console.log("[CleanerChatGPT] Token enregistré.");
-    location.reload();
+  // Manually save the token
+  saveTokenBtn?.addEventListener("click", () => {
+    const token = tokenInput?.value.trim();
+    if (!token || !token.startsWith("ey")) {
+      alert("Invalid token.");
+      return;
+    }
+    chrome.storage.local.set({ authToken: token }, () => {
+      console.log("[CleanerChatGPT] Token saved.");
+      location.reload();
+    });
   });
-});
 
-// Suppression du token
-clearTokenBtn?.addEventListener("click", () => {
-  chrome.storage.local.remove("authToken", () => {
-    console.log("[CleanerChatGPT] Token supprimé.");
-    location.reload();
+  // Remove the token
+  clearTokenBtn?.addEventListener("click", () => {
+    chrome.storage.local.remove("authToken", () => {
+      console.log("[CleanerChatGPT] Token deleted.");
+      location.reload();
+    });
   });
-});
 
-
-  // Sélectionner toutes les conversations
+  // Select all conversations
   selectAllBtn?.addEventListener("click", () => {
     document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = true);
     updateSelectedCount();
   });
 
-  // Désélectionner toutes les conversations
+  // Deselect all conversations
   clearSelectionBtn?.addEventListener("click", () => {
     document.querySelectorAll("input[type='checkbox']").forEach(cb => cb.checked = false);
     updateSelectedCount();
   });
 
-  // Met à jour le compteur de conversations sélectionnées
+  // Update the selected conversations count
   function updateSelectedCount() {
     const selected = document.querySelectorAll("input[type='checkbox']:checked").length;
-    selectedCountSpan.textContent = `${selected} sélectionnée${selected !== 1 ? 's' : ''}`;
+    selectedCountSpan.textContent = `${selected} selected${selected !== 1 ? 's' : ''}`;
   }
 
   try {
     const conversations = await getConversations();
 
     if (!conversations.length) {
-      list.innerHTML = "<p style='color:white'>Aucune conversation trouvée.</p>";
+      list.innerHTML = "<p style='color:white'>No conversations found.</p>";
       return;
     }
 
@@ -68,13 +67,13 @@ clearTokenBtn?.addEventListener("click", () => {
       item.innerHTML = `
         <label style="color:white">
           <input type="checkbox" data-id="${conv.id}" />
-          ${conv.title || "(Sans titre)"}
+          ${conv.title || "(Untitled)"}
         </label>
       `;
       list.appendChild(item);
     });
 
-    // Ecouter les changements sur les cases à cocher
+    // Listen for changes on checkboxes
     list.addEventListener("change", (e) => {
       if (e.target && e.target.matches("input[type='checkbox']")) {
         updateSelectedCount();
@@ -85,28 +84,28 @@ clearTokenBtn?.addEventListener("click", () => {
       const selected = [...document.querySelectorAll("input:checked")].map(cb => cb.dataset.id);
 
       if (!selected.length) {
-        alert("Sélectionne au moins une conversation.");
+        alert("Please select at least one conversation.");
         return;
       }
 
-      const confirmDelete = confirm(`Tu vas supprimer ${selected.length} conversation(s). T’es sûr ?`);
+      const confirmDelete = confirm(`You are about to delete ${selected.length} conversation(s). Are you sure?`);
       if (!confirmDelete) return;
 
       for (const id of selected) {
         try {
           await deleteConversation(id);
-          console.log(`Conversation ${id} supprimée.`);
+          console.log(`Conversation ${id} deleted.`);
         } catch (err) {
-          console.error(`Erreur suppression ${id}`, err);
+          console.error(`Error deleting ${id}`, err);
         }
       }
 
-      alert("Suppression terminée. Recharge la page.");
+      alert("Deletion completed. Please refresh the page.");
       location.reload();
     });
 
   } catch (error) {
-    list.innerHTML = `<p style='color:red'>Erreur : ${error.message}</p>`;
+    list.innerHTML = `<p style='color:red'>Error: ${error.message}</p>`;
     console.error(error);
   }
 });
