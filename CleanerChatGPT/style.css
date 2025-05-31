@@ -52,6 +52,7 @@ button {
 
 button.white-button {
   background-color: #fff;
+  font-family: 'Orbitron', sans-serif;
   color: #000;
 }
 
@@ -70,6 +71,7 @@ button.gradient-button {
   background: linear-gradient(45deg, #ff4b2b, #ff416c, #4facfe, #00f2fe);
   background-size: 300% 300%;
   color: white;
+  font-family: 'Orbitron', sans-serif;
   animation: gradientMove 5s ease infinite;
   border: none;
   border-radius: 6px;
