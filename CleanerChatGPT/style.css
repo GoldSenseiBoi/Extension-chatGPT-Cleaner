@@ -86,9 +86,19 @@ button.gradient-button:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Ajout spinner */
+#loading-spinner img {
+  animation: spin 1s linear infinite;
+  filter: brightness(1.5);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

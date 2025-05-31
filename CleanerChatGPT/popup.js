@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const clearSelectionBtn = document.getElementById("clear-selection-btn");
   const selectedCountSpan = document.getElementById("selected-count");
   const helpButton = document.getElementById("help-button");
+  const loader = document.getElementById("loading-spinner");
 
   helpButton?.addEventListener("click", () => {
     chrome.tabs.create({ url: chrome.runtime.getURL("help.html") });
@@ -91,17 +92,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       const confirmDelete = confirm(`You are about to delete ${selected.length} conversation(s). Are you sure?`);
       if (!confirmDelete) return;
 
-      for (const id of selected) {
-        try {
-          await deleteConversation(id);
-          console.log(`Conversation ${id} deleted.`);
-        } catch (err) {
-          console.error(`Error deleting ${id}`, err);
-        }
-      }
+      // Afficher le loader
+      loader.style.display = 'block';
+      cleanButton.disabled = true;
 
-      alert("Deletion completed. Please refresh the page.");
-      location.reload();
+      try {
+        for (const id of selected) {
+          try {
+            await deleteConversation(id);
+            console.log(`Conversation ${id} deleted.`);
+          } catch (err) {
+            console.error(`Error deleting ${id}`, err);
+          }
+        }
+
+        alert("Deletion completed. Please refresh the page.");
+        location.reload();
+      } finally {
+        loader.style.display = 'none';
+        cleanButton.disabled = false;
+      }
     });
 
   } catch (error) {
