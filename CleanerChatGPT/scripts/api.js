@@ -6,14 +6,14 @@ function getToken() {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(["authToken"], (result) => {
       if (chrome.runtime.lastError) {
-        console.error("[CleanerChatGPT] Erreur chrome.storage :", chrome.runtime.lastError);
+        console.error("[CleanerChatGPT] Chrome.storage error:", chrome.runtime.lastError);
         return reject(chrome.runtime.lastError);
       }
       if (!result.authToken) {
-        console.warn("[CleanerChatGPT] Aucun token trouvé.");
-        return reject(new Error("Aucun token trouvé. Veuillez vous connecter à chatgpt.com."));
+        console.warn("[CleanerChatGPT] No token found.");
+        return reject(new Error("No token found. Please log in to chatgpt.com."));
       }
-      console.log("[CleanerChatGPT] Token récupéré depuis chrome.storage.");
+      console.log("[CleanerChatGPT] Token retrieved from chrome.storage.");
       resolve(result.authToken);
     });
   });
@@ -32,7 +32,7 @@ export async function getConversations() {
       },
     });
 
-    if (!res.ok) throw new Error("Erreur lors du chargement des conversations.");
+    if (!res.ok) throw new Error("Error loading conversations.");
 
     const data = await res.json();
     const conversations = data.items.map((conv) => ({ id: conv.id, title: conv.title }));
@@ -40,7 +40,7 @@ export async function getConversations() {
     allConversations = allConversations.concat(conversations);
 
     if (conversations.length < limit) {
-      // Si on reçoit moins que la limite, on a tout récupéré
+      // If fewer than the limit, we've retrieved all conversations
       break;
     }
 
@@ -61,7 +61,7 @@ export async function deleteConversation(conversationId) {
     body: JSON.stringify({ is_visible: false }),
   });
 
-  if (!res.ok) throw new Error(`Erreur lors de la suppression de ${conversationId}`);
+  if (!res.ok) throw new Error(`Error deleting conversation ${conversationId}`);
 
   return res.status === 200;
 }
