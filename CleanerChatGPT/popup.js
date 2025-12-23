@@ -15,12 +15,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     conversations.forEach((conv, index) => {
       const item = document.createElement("div");
-      item.innerHTML = `
-        <label>
-          <input type="checkbox" data-index="${index}" />
-          ${conv.title}
-        </label>
-      `;
+      const label = document.createElement("label");
+      const checkbox = document.createElement("input");
+      
+      checkbox.type = "checkbox";
+      checkbox.dataset.index = index;
+      
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(" " + conv.title));
+      item.appendChild(label);
       list.appendChild(item);
     });
 
