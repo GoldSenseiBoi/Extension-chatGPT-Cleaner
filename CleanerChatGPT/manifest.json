@@ -6,7 +6,10 @@
   
   "browser_specific_settings": {
     "gecko": {
-      "id": "cleanerchatgpt@presetstudio.com"
+      "id": "cleanerchatgpt@presetstudio.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
 
@@ -32,9 +35,5 @@
       "js": ["content.js"],
       "run_at": "document_idle"
     }
-  ],
-
-  "data_collection_permissions": {
-    "required": false
-  }
+  ]
 }
